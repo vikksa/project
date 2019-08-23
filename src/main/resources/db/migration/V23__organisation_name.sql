@@ -1,0 +1,1 @@
+ALTER TABLE projects ADD COLUMN organisation_name TEXT;

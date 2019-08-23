@@ -1,0 +1,21 @@
+spring:
+  servlet:
+    multipart:
+      max-file-size: 10240MB
+      max-request-size: 10240MB
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      leakDetectionThreshold: 300000
+      maximumPoolSize: 30
+      idleTimeout: 30000
+      maxLifetime: 50000
+      connectionTimeout: 60000
+  application.name: projects-service
+
+vikson:
+  plans:
+    revisionDownloadUrlExpireryTimeMinutes: 720
+
+springfox.documentation.swagger.v2.path: /projects/api-docs

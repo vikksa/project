@@ -1,0 +1,1 @@
+alter table projects add column team_slug text;

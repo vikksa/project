@@ -1,0 +1,42 @@
+variables:
+  MAVEN_OPTS: "-Dmaven.test.skip=true -Dmaven.repo.local=.m2/repository/"
+  MAVEN_CLI_OPTS: "-s .m2/settings.xml"
+  DOCKER_HOST: tcp://localhost:2375
+  DOCKER_DRIVER: overlay
+
+stages:
+- build
+- staging-deploy
+- production-deploy
+
+build:
+  image: maven:3.3.9-jdk-8
+  stage: build
+  script: "mvn $MAVEN_CLI_OPTS --quiet clean package"
+  artifacts:
+    paths:
+    - target/*.jar
+  cache:
+    key: projects
+    paths:
+      - .m2/repository/
+
+staging-deploy:
+  image: docker:latest
+  services:
+  - docker:dind
+  stage: staging-deploy
+  script:
+  #Script to deploy on staging
+  only:
+  - staging
+
+production-deploy:
+  image: docker:latest
+  services:
+    - docker:dind
+  stage: production-deploy
+  script:
+  #Script to deploy on production
+  only:
+    - production

@@ -1,0 +1,1 @@
+ALTER TABLE plan_revisions add column move_x int, add column move_y int, add column factor DOUBLE PRECISION;

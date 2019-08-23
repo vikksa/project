@@ -1,0 +1,1 @@
+ALTER TABLE plan_revisions ADD COLUMN archive_checksum CHAR(32);

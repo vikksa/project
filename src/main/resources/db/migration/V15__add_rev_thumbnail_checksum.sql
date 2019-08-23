@@ -1,0 +1,1 @@
+ALTER TABLE plan_revisions ADD COLUMN thumbnail_checksum VARCHAR(32);

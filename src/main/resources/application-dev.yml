@@ -1,0 +1,43 @@
+# Staging profile for the projects service
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/project_staging?user=postgres&password=hrhk
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      poolName: project-service-pool
+      leakDetectionThreshold: 2000
+      maximumPoolSize: 7
+      minimumIdle: 4
+      idleTimeout: 300000
+      maxLifetime: 600000
+  jpa:
+    generate-ddl: false
+    hibernate.ddl-auto: none
+#    show-sql: true
+    #Disable JPA (Hibernate)'s feature detection to prevent warning "java.sql.SQLFeatureNotSupportedException:
+    #Method org.postgresql.jdbc.PgConnection.createClob() is not yet implemented" on start up
+    properties.hibernate.temp.use_jdbc_metadata_defaults: false
+  cache:
+    cacheNames: planLevel
+    caffeine:
+      spec: expireAfterWrite=30s
+vikson:
+  url: localhost:8081
+  users:
+    projects: localhost:8082
+  security:
+    jwt.public-key-resource: public.cert
+  storage:
+    scheme: S3
+    s3:
+      buckets:
+        plans: plans
+        misc: misc-content
+  aws.lambda.weatherFunctionArn:
+logging:
+#  file: logs/dev_app.log
+  pattern:
+    file: "%d %-5level [%thread] %logger{0} : %msg%n"
+  level:
+    com.vikram: DEBUG
+#server.port: 8090
